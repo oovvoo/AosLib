@@ -2,7 +2,7 @@
 AosUtils.PrefManager
 안드로이드 기기에 데이터 저장
 ## 지원되는 Type
-1. 기본자료형
+1. 기본자료형(String,int,boolean 등)
 2. ArrayList<String>
 3. Bitmap 이미지  
 ***
