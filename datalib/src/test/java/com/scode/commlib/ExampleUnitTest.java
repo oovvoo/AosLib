@@ -1,4 +1,4 @@
-package com.scode.datalib;
+package com.scode.commlib;
 
 import org.junit.Test;
 

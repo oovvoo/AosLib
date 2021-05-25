@@ -1,4 +1,4 @@
-package com.scode.datalib;
+package com.scode.commlib;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
