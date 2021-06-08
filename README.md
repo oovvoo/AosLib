@@ -1,4 +1,4 @@
-# AosLib ver.0.0.1
+# AosLib 
 AosUtils.PrefManager
 안드로이드 기기에 데이터 저장
 ## 지원되는 Type
