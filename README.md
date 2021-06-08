@@ -9,9 +9,9 @@ AosUtils.PrefManager
 
 ### ex) 사용예
 
-<code>PrefManager.setBitmap(getApplicationContext(), {BitmapImage});</code>
+<code>PrefManager.setBitmap(getApplicationContext(),{key},{BitmapImage});</code>
 
-<code>Bitmap bitmap =  PrefManager.getBitmap(getApplicationContext(),"img1");</code>
+<code>Bitmap bitmap =  PrefManager.getBitmap(getApplicationContext(),{key});</code>
 
 ***
   
