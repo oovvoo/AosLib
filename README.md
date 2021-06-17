@@ -1,4 +1,4 @@
-# AosLib ver.0.0.1
+# AosLib 
 AosUtils.PrefManager
 안드로이드 기기에 데이터 저장
 ## 지원되는 Type
@@ -9,9 +9,9 @@ AosUtils.PrefManager
 
 ### ex) 사용예
 
-<code>PrefManager.setBitmap(getApplicationContext(), {BitmapImage});</code>
+<code>PrefManager.setBitmap(getApplicationContext(),{key},{BitmapImage});</code>
 
-<code>Bitmap bitmap =  PrefManager.getBitmap(getApplicationContext(),"img1");</code>
+<code>Bitmap bitmap =  PrefManager.getBitmap(getApplicationContext(),{key});</code>
 
 ***
   
