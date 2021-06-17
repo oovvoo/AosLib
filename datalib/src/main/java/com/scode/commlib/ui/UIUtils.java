@@ -1,5 +1,7 @@
 package com.scode.commlib.ui;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -39,6 +41,58 @@ public class UIUtils {
         spannable.setSpan(new ForegroundColorSpan(color),pMsg.indexOf(targetText),pMsg.indexOf(targetText)+targetText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannable.setSpan(new BackgroundColorSpan(backColor),pMsg.indexOf(targetText),pMsg.indexOf(targetText)+targetText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannable.setSpan(new StyleSpan(Typeface.BOLD),pMsg.indexOf(targetText),pMsg.indexOf(targetText)+targetText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(spannable);
+    }
+
+    /**
+     * TextView의 특정 단어를 원하는 색으로 강조 + 배경색
+     * @param textView 적용할 TextView
+     *
+     */
+    public static void setRainbowTextView(TextView textView) {
+        String pMsg = textView.getText().toString();
+        Spannable spannable = new SpannableStringBuilder(pMsg);
+        int[] rainbow = new int[]{
+                Color.parseColor("#CC99FF"),
+                Color.parseColor("#A9D1F7"),
+                Color.parseColor("#B4F0A7"),
+                Color.parseColor("#FFFFBF"),
+                Color.parseColor("#FFDFBE"),
+                Color.parseColor("#FFB1B0"),
+
+        };
+        int idx = 0;
+        for(int i = 0 ; i < pMsg.length();)
+        {
+
+            spannable.setSpan(new ForegroundColorSpan(rainbow[idx++]),i,i+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if(idx == rainbow.length-1)
+                idx = 0;
+
+            i++;
+        }
+        textView.setText(spannable);
+    }
+
+    /**
+     * TextView의 특정 단어를 원하는 색으로 강조 + 배경색
+     * @param textView 적용할 TextView
+     * @param colors ColorInt 배열
+     */
+    public static void setRainbowTextView(TextView textView, @ColorInt int...colors) {
+        String pMsg = textView.getText().toString();
+        Spannable spannable = new SpannableStringBuilder(pMsg);
+        int[] rainbow = colors;
+        int idx = 0;
+        for(int i = 0 ; i < pMsg.length();)
+        {
+
+            spannable.setSpan(new ForegroundColorSpan(rainbow[idx++]),i,i+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if(idx == rainbow.length-1)
+                idx = 0;
+
+            i++;
+        }
         textView.setText(spannable);
     }
 
