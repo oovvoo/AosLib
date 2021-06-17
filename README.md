@@ -18,7 +18,7 @@ AosUtils.PrefManager
 <code>AosLib.UIUtils.setRainbowTextView(textView);</code>
 - 텍스트가 무지개로 변함
   
-<code>AosLib.UIUtils.setRainbowTextView(textView,ColorIntArray);</code>
+<code>AosLib.UIUtils.setRainbowTextView(test,new int[]{Color.MAGENTA,Color.BLUE,Color.YELLOW,Color.WHITE});</code>
   
 - 텍스트가 원하는 색상으로 순환  
   
