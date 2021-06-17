@@ -14,6 +14,13 @@ AosUtils.PrefManager
 <code>Bitmap bitmap =  PrefManager.getBitmap(getApplicationContext(),{key});</code>
 
 ***
+### ex) 사용예  
+<code>AosLib.UIUtils.setRainbowTextView(textView);</code>
+- 텍스트가 무지개로 변함
+  
+<code>AosLib.UIUtils.setRainbowTextView(textView,ColorIntArray);</code>
+  
+- 텍스트가 원하는 색상으로 순환  
   
 ### 적용방법
   
@@ -34,7 +41,7 @@ allprojects {
 <pre>
 <code>
 dependencies {
-    implementation 'com.github.oovvoo:AosLib:0.0.1'
+    implementation 'com.github.oovvoo:AosLib:0.0.4'
 }
 </code>
 </pre>
