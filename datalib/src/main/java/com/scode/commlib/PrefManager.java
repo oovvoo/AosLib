@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 import org.json.JSONArray;
@@ -27,13 +28,20 @@ public class PrefManager {
 
 
 
-    private static SharedPreferences getPreferences(Context context) throws GeneralSecurityException, IOException {
-        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+    private static SharedPreferences getPreferences(Context context) {
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
 
-        return EncryptedSharedPreferences.create(PREFERENCES_NAME,masterKeyAlias,context,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        );
+            return EncryptedSharedPreferences.create(PREFERENCES_NAME,masterKeyAlias,context,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        }  catch (Exception e) {
+            e.printStackTrace();
+            Log.e("PrefManager","EncryptedSharedPrefrences Create Failed!!");
+        }
+        return null;
     }
     /**
      * String 값 저장
@@ -42,7 +50,7 @@ public class PrefManager {
      * @param key
      * @param value
      */
-    public static void setString(Context context, String key, String value) throws GeneralSecurityException, IOException {
+    public static void setString(Context context, String key, String value)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
@@ -55,7 +63,7 @@ public class PrefManager {
      * @param key
      * @param list
      */
-    public static void setStringArrayList(Context context, String key, ArrayList<String> list) throws GeneralSecurityException, IOException {
+    public static void setStringArrayList(Context context, String key, ArrayList<String> list)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         JSONArray a = new JSONArray();
@@ -76,7 +84,7 @@ public class PrefManager {
      * @param key
      * @param bitmap
      */
-    public static void setBitmap(Context context, String key, Bitmap bitmap) throws GeneralSecurityException, IOException {
+    public static void setBitmap(Context context, String key, Bitmap bitmap)  {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,30,baos);
         byte[] b  = baos.toByteArray();
@@ -92,7 +100,7 @@ public class PrefManager {
      * @param value
      */
 
-    public static void setBoolean(Context context, String key, boolean value) throws GeneralSecurityException, IOException {
+    public static void setBoolean(Context context, String key, boolean value)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);
@@ -107,7 +115,7 @@ public class PrefManager {
      * @param key
      * @param value
      */
-    public static void setInt(Context context, String key, int value) throws GeneralSecurityException, IOException {
+    public static void setInt(Context context, String key, int value)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(key, value);
@@ -122,7 +130,7 @@ public class PrefManager {
      * @param value
      */
 
-    public static void setLong(Context context, String key, long value) throws GeneralSecurityException, IOException {
+    public static void setLong(Context context, String key, long value)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(key, value);
@@ -138,7 +146,7 @@ public class PrefManager {
      * @param value
      */
 
-    public static void setFloat(Context context, String key, float value) throws GeneralSecurityException, IOException {
+    public static void setFloat(Context context, String key, float value)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putFloat(key, value);
@@ -151,7 +159,7 @@ public class PrefManager {
      * @param key
      * @return
      */
-    public static ArrayList<String> getStringArrayList(Context context,String key) throws GeneralSecurityException, IOException {
+    public static ArrayList<String> getStringArrayList(Context context,String key)  {
         SharedPreferences prefs = getPreferences(context);
         String json = prefs.getString(key,null );
         ArrayList<String> list = new ArrayList<>();
@@ -177,7 +185,7 @@ public class PrefManager {
      * @param key
      * @return
      */
-    public static Bitmap getBitmap(Context context, String key) throws GeneralSecurityException, IOException {
+    public static Bitmap getBitmap(Context context, String key)  {
         String temp = getString(context,key);
         try {
             byte[] encodeByte = Base64.decode(temp, Base64.DEFAULT);
@@ -197,7 +205,7 @@ public class PrefManager {
      * @param key
      * @return
      */
-    public static String getString(Context context, String key) throws GeneralSecurityException, IOException {
+    public static String getString(Context context, String key)  {
         SharedPreferences prefs = getPreferences(context);
         String value = prefs.getString(key, DEFAULT_VALUE_STRING);
         return value;
@@ -211,7 +219,7 @@ public class PrefManager {
      * @param key
      * @return
      */
-    public static boolean getBoolean(Context context, String key) throws GeneralSecurityException, IOException {
+    public static boolean getBoolean(Context context, String key)  {
         SharedPreferences prefs = getPreferences(context);
         boolean value = prefs.getBoolean(key, DEFAULT_VALUE_BOOLEAN);
         return value;
@@ -226,7 +234,7 @@ public class PrefManager {
      * @return
      */
 
-    public static int getInt(Context context, String key) throws GeneralSecurityException, IOException {
+    public static int getInt(Context context, String key)  {
         SharedPreferences prefs = getPreferences(context);
         int value = prefs.getInt(key, DEFAULT_VALUE_INT);
         return value;
@@ -241,7 +249,7 @@ public class PrefManager {
      * @return
      */
 
-    public static long getLong(Context context, String key) throws GeneralSecurityException, IOException {
+    public static long getLong(Context context, String key)  {
         SharedPreferences prefs = getPreferences(context);
         long value = prefs.getLong(key, DEFAULT_VALUE_LONG);
         return value;
@@ -256,7 +264,7 @@ public class PrefManager {
      * @return
      */
 
-    public static float getFloat(Context context, String key) throws GeneralSecurityException, IOException {
+    public static float getFloat(Context context, String key)  {
         SharedPreferences prefs = getPreferences(context);
         float value = prefs.getFloat(key, DEFAULT_VALUE_FLOAT);
         return value;
@@ -270,7 +278,7 @@ public class PrefManager {
      * @param key
      */
 
-    public static void removeKey(Context context, String key) throws GeneralSecurityException, IOException {
+    public static void removeKey(Context context, String key)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor edit = prefs.edit();
         edit.remove(key);
@@ -284,7 +292,7 @@ public class PrefManager {
      * @param context
      */
 
-    public static void clear(Context context) throws GeneralSecurityException, IOException {
+    public static void clear(Context context)  {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor edit = prefs.edit();
         edit.clear();
