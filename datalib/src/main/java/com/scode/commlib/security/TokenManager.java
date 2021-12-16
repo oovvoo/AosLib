@@ -8,6 +8,8 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.apache.tomcat.util.codec.binary.Base64;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.X509EncodedKeySpec;
@@ -54,7 +56,7 @@ public class TokenManager {
      * 토큰을 체크하고, 토큰에 문제가 있으면 앱을 종료 시킨다.
      * @param context
      */
-    public static boolean checkToken(Context context) {
+    public static boolean checkToken(Context context) throws GeneralSecurityException, IOException {
         if (verifyToken(getToken(context))) {
             return true;
         } else {
@@ -64,7 +66,7 @@ public class TokenManager {
         }
     }
 
-    public static void tokenExpired(Context context) {
+    public static void tokenExpired(Context context) throws GeneralSecurityException, IOException {
 
         PrefManager.removeKey(context, "token");
         PrefManager.removeKey(context, "key");
@@ -75,12 +77,10 @@ public class TokenManager {
         Claims claims = Jwts.parserBuilder().setSigningKey(EC_PUBLIC_KEY).build().parseClaimsJws(token).getBody();
         return claims;
     }
-    public static void setToken(Context context, String token)
-    {
+    public static void setToken(Context context, String token) throws GeneralSecurityException, IOException {
         PrefManager.setString(context,"token",token);
     }
-    public static String getToken(Context context)
-    {
+    public static String getToken(Context context) throws GeneralSecurityException, IOException {
         return PrefManager.getString(context,"token");
     }
     //secret str을 받아 공개키를 앱에 할당한다.
@@ -97,7 +97,7 @@ public class TokenManager {
         PrefManager.setString(context,"key",secret_str);
     }
 
-    public static String getPublicKeyString(Context context) {
+    public static String getPublicKeyString(Context context) throws GeneralSecurityException, IOException {
         return PrefManager.getString(context,"key");
     }
 }
