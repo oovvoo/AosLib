@@ -177,8 +177,7 @@ public class PrefManager {
      * @param key
      * @return
      */
-    public static Bitmap getBitmap(Context context, String key)
-    {
+    public static Bitmap getBitmap(Context context, String key) throws GeneralSecurityException, IOException {
         String temp = getString(context,key);
         try {
             byte[] encodeByte = Base64.decode(temp, Base64.DEFAULT);
