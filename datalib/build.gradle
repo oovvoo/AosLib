@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 8
-        versionName "0.0.8"
+        versionCode 9
+        versionName "0.0.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -44,6 +44,6 @@ dependencies {
     implementation "io.jsonwebtoken:jjwt-api:$jjwt_version"
     implementation "io.jsonwebtoken:jjwt-impl:$jjwt_version"
     implementation "io.jsonwebtoken:jjwt-jackson:$jjwt_version"
-    implementation group: 'org.apache.tomcat', name: 'tomcat-util', version: '8.5.23'
+    implementation 'org.apache.tomcat:tomcat-util:10.0.20'
 
 }
